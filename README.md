@@ -1,7 +1,9 @@
-# Wazo modify SMTP Origin 
+# Wazo modify Mail configuration 
 If you want modify the SMTP origin parameter (default : exemple.wazo.community) to your personal parameter <br>
+Or Domain, relayHost / fallback relayHost and Canical.<br>
 Autogenered edited file /etc/xivo/common.conf<br>
 Genered file /etc/mailname<br>
+and insert to database.<br>
 
 # Wazo version
 Wazo version >= 19.12<br>
@@ -15,4 +17,4 @@ foo@bar:/tmp$  chmod +x update_smtp_origin.sh
 foo@bar:/tmp$  ./update_smtp_origin.sh
 ```
 
-Enter into dialog box the new new domain (ex: exemple.wazo.io)
+Read instruction into dialog box
