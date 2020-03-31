@@ -33,7 +33,7 @@ exitstatus=$?
   if [ $exitstatus = 0 ]; then
     {
         echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE mydomain SET canonical='$domain';";
+        sudo -u postgres psql asterisk -c "UPDATE mail SET mydomain='$domain';";
 
         echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
         sleep 0.5
@@ -73,7 +73,7 @@ exitstatus=$?
   if [ $exitstatus = 0 ]; then
     {
         echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE relayhost SET canonical='$Relayhost';";
+        sudo -u postgres psql asterisk -c "UPDATE mail SET relayhost='$Relayhost';";
 
         echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
         sleep 0.5
@@ -82,7 +82,7 @@ exitstatus=$?
   fi
 
   update_fallback_relayhost
-  
+
 }
 
 update_fallback_relayhost() {
@@ -93,7 +93,7 @@ exitstatus=$?
   if [ $exitstatus = 0 ]; then
     {
         echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE fallback_relayhost SET canonical='$fallback_relayhost';";
+        sudo -u postgres psql asterisk -c "UPDATE mail SET fallback_relayhost='$fallback_relayhost';";
 
         echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
         sleep 0.5
