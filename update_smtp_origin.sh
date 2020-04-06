@@ -47,7 +47,7 @@ update_canonical
 
 update_canonical() {
 Canonical=$(whiptail --title "Hello Wazo HELP / Modify Canonical" \
---inputbox "Please write canical mail (ex.: ex@mail.com general@domain.tdl\r+ex2@mail.com general@domain.tdl):" 13 60 3>&1 1>&2 2>&3)
+--inputbox "Please write canical mail (ex.: ex@mail.com general@domain.tdl\n+ex2@mail.com general@domain.tdl):" 13 60 3>&1 1>&2 2>&3)
 
 exitstatus=$?
   if [ $exitstatus = 0 ]; then
