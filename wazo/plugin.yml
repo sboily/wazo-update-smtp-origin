@@ -1,0 +1,10 @@
+name: smtp_configuration
+namespace: official
+version: 0.0.1
+author: Wazo Support
+display_name: SMTP configuration
+min_wazo_version: 18.03
+tags:
+  - support
+  - mail
+homepage: http://support.wazo.io

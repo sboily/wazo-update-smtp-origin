@@ -1,0 +1,25 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0+
+
+
+case "$1" in
+    build)
+        ;;
+
+    package)
+	chmod +x wazo-update-smtp-origin
+        mkdir -p ${pkgdir}/usr/local/bin
+	cp -a wazo-update-smtp-origin ${pkgdir}/
+        ;;
+
+    install)
+        ;;
+
+    uninstall)
+        ;;
+
+    *)
+        echo "$0 called with unknown argument '$1'" >&2
+        exit 1
+    ;;
+esac
