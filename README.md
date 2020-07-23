@@ -14,7 +14,9 @@ and insert to database.
 
 Wazo version >= 19.12
 
-# Installation 
+# Installation
+
+Connect to your stack and get the root.
 
     apt install wazo-plugind-cli
     wazo-plugind-cli -c "install git https://github.com/sboily/wazo-update-smtp-origin"
