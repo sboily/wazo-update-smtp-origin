@@ -17,7 +17,7 @@ Wazo version >= 19.12
 Connect to your stack and get the root.
 
     apt install wazo-plugind-cli
-    wazo-plugind-cli -c "install git https://github.com/sboily/wazo-update-smtp-origin"
+    wazo-plugind-cli -c "install git https://github.com/wazo-communication/wazo-update-smtp-origin"
 
 # Usage
 
