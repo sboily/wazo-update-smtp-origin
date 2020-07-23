@@ -17,6 +17,7 @@ Wazo version >= 19.12
 # Installation 
 
     apt install wazo-plugind-cli
+    wazo-plugind-cli -c "install git https://github.com/sboily/wazo_update_smtp_origin"
 
 # Usage
 
