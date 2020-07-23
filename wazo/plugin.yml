@@ -1,4 +1,4 @@
-name: smtp_configuration
+name: wazo-smtp-configuration
 namespace: official
 version: 0.0.1
 author: Wazo Support
