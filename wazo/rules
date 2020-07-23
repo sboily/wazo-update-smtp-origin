@@ -9,7 +9,7 @@ case "$1" in
     package)
 	chmod +x wazo-update-smtp-origin
         mkdir -p ${pkgdir}/usr/local/bin
-	cp -a wazo-update-smtp-origin ${pkgdir}/
+	cp wazo-update-smtp-origin ${pkgdir}/usr/local/bin/
         ;;
 
     install)
