@@ -1,14 +1,12 @@
 # Wazo modify Mail configuration 
 
-If you want modify the SMTP origin parameter (default : exemple.wazo.community) to your personal parameter
+If you want modify the SMTP origin parameter (default : exemple.wazo.community) to your personal parameter or Domain, relayHost/fallback relayHost and Canical.
 
-Or Domain, relayHost / fallback relayHost and Canical.
+This script do:
 
-Autogenered edited file /etc/xivo/common.conf
-
-Generated file /etc/mailname
-
-and insert to database.
+* Auto-generated edited file /etc/xivo/common.conf
+* Generated file /etc/mailname
+* And insert to database.
 
 # Wazo version
 
