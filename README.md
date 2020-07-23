@@ -21,6 +21,6 @@ Connect to your stack and get the root.
 
 # Usage
 
-    wazo-smtp-origin
+    wazo-update-smtp-origin
 
 Read instruction into dialog box
