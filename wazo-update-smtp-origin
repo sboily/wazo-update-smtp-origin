@@ -1,131 +1,156 @@
 #!/bin/bash
-#Wazo SUPPORT - Franck MULLER
+# Copyright 2019 The Wazo Authors  (see the AUTHORS file)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 
 bye() {
-whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --msgbox "Your SMTP origin has been modified\nHave a nice day :-) Wazo Support." 10 60
+    whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --msgbox "Your SMTP origin has been modified\nHave a nice day :-) Wazo Support." 10 60
 }
 
 update_smtp_origin() {
-SMTP_Origin=$(whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --inputbox "Please write your new SMTP Origin Domain (ex.: contact@domain.io):" 13 60 3>&1 1>&2 2>&3)
+    SMTP_Origin=$(whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --inputbox "Please write your new SMTP Origin Domain (ex.: contact@domain.io):" 13 60 3>&1 1>&2 2>&3)
 
-exitstatus=$?
-if [ $exitstatus = 0 ]; then
-  {
-      echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-      sudo -u postgres psql asterisk -c "UPDATE mail SET origin='$SMTP_Origin';";
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+      {
+          echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
+          sudo -u postgres psql asterisk -c "UPDATE mail SET origin='$SMTP_Origin';";
 
-      echo -e "XXX\n50\nAdd $SMTP_Origin in DB... Done.\nXXX"
-      sleep 0.5
+          echo -e "XXX\n50\nAdd $SMTP_Origin in DB... Done.\nXXX"
+          sleep 0.5
 
-  } | whiptail --gauge "Wait Please" 6 60 0
+      } | whiptail --gauge "Wait Please" 6 60 0
 
-fi
+    fi
 
-update_domain
+    update_domain
 
 }
 
 update_domain() {
-  domain=$(whiptail --title "Hello Wazo HELP / Modify Domain" \
---inputbox "Please write domain (ex.: domain.tdl):" 13 60 3>&1 1>&2 2>&3)
+    domain=$(whiptail --title "Hello Wazo HELP / Modify Domain" \
+      --inputbox "Please write domain (ex.: domain.tdl):" 13 60 3>&1 1>&2 2>&3)
 
-exitstatus=$?
-  if [ $exitstatus = 0 ]; then
-    {
-        echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE mail SET mydomain='$domain';";
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        {
+            echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
+            sudo -u postgres psql asterisk -c "UPDATE mail SET mydomain='$domain';";
 
-        echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
+            sleep 0.5
 
-    } | whiptail --gauge "Wait Please" 6 60 0
-  fi
+        } | whiptail --gauge "Wait Please" 6 60 0
+    fi
 
-update_canonical
+    update_canonical
 
 }
 
 update_canonical() {
-Canonical=$(whiptail --title "Hello Wazo HELP / Modify Canonical" \
---inputbox "Please write canical mail (ex.: ex@mail.com general@domain.tdl\n+ex2@mail.com general@domain.tdl):" 13 60 3>&1 1>&2 2>&3)
+    Canonical=$(whiptail --title "Hello Wazo HELP / Modify Canonical" \
+      --inputbox "Please write canical mail (ex.: ex@mail.com general@domain.tdl\n+ex2@mail.com general@domain.tdl):" 13 60 3>&1 1>&2 2>&3)
 
-exitstatus=$?
-  if [ $exitstatus = 0 ]; then
-    {
-        echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE mail SET canonical='$Canonical';";
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        {
+            echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
+            sudo -u postgres psql asterisk -c "UPDATE mail SET canonical='$Canonical';";
 
-        echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
+            sleep 0.5
 
-    } | whiptail --gauge "Wait Please" 6 60 0
-  fi
+        } | whiptail --gauge "Wait Please" 6 60 0
+    fi
 
-  update_relayhost
+    update_relayhost
 
 }
 
 update_relayhost() {
-Relayhost=$(whiptail --title "Hello Wazo HELP / Modify relayhost" \
---inputbox "Please write Relay Host (ex.: smtp2.domain.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+    Relayhost=$(whiptail --title "Hello Wazo HELP / Modify relayhost" \
+      --inputbox "Please write Relay Host (ex.: smtp2.domain.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
-exitstatus=$?
-  if [ $exitstatus = 0 ]; then
-    {
-        echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE mail SET relayhost='$Relayhost';";
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        {
+            echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
+            sudo -u postgres psql asterisk -c "UPDATE mail SET relayhost='$Relayhost';";
 
-        echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
+            sleep 0.5
 
-    } | whiptail --gauge "Wait Please" 6 60 0
-  fi
+        } | whiptail --gauge "Wait Please" 6 60 0
+    fi
 
-  update_fallback_relayhost
+    update_fallback_relayhost
 
 }
 
 update_fallback_relayhost() {
-  fallback_relayhost=$(whiptail --title "Hello Wazo HELP / Modify fallback_relayhost" \
---inputbox "Please write fallback relay host (ex.: smtp.provider.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+    fallback_relayhost=$(whiptail --title "Hello Wazo HELP / Modify fallback_relayhost" \
+      --inputbox "Please write fallback relay host (ex.: smtp.provider.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
-exitstatus=$?
-  if [ $exitstatus = 0 ]; then
-    {
-        echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-        sudo -u postgres psql asterisk -c "UPDATE mail SET fallback_relayhost='$fallback_relayhost';";
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        {
+            echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
+            sudo -u postgres psql asterisk -c "UPDATE mail SET fallback_relayhost='$fallback_relayhost';";
 
-        echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
+            sleep 0.5
 
-    } | whiptail --gauge "Wait Please" 6 60 0
-  fi
+        } | whiptail --gauge "Wait Please" 6 60 0
+    fi
 
-  final_step
+    final_step
 
 }
 
+configure_main_cf_template() {
+    echo "
+# Add by wazo-update-smtp-origin
+smtp_sender_dependent_authentication = yes
+sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = noanonymous
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd" >> /etc/xivo/custom-templates/postfix/etc/postfix/main.cf
+}
+
+create_wazo_template() {
+    mkdir -p /etc/xivo/custom-templates/postfix/etc/postfix/
+    cp /etc/postfix/main.cf /etc/xivo/custom-templates/postfix/etc/postfix/
+    touch /etc/xivo/custom-templates/postfix/etc/postfix/sender_relay
+    touch /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
+    chmod 600 /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
+    chown root:root /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
+
+    configure_main_cf_template
+}
 
 final_step() {
-  exitstatus=$?
-  if [ $exitstatus = 0 ]; then
-    {
-        echo -e "XXX\n50\nCreate new config... \nXXX"
-        xivo-create-config
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+       {
+            echo -e "XXX\n50\nCreate new config... \nXXX"
+            xivo-create-config
 
-        echo -e "XXX\n100\nCreate Config... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n100\nCreate Config... Done.\nXXX"
+            sleep 0.5
 
-        echo -e "XXX\n50\nUpdate new config... \nXXX"
-        xivo-update-config
+            echo -e "XXX\n50\nUpdate new config... \nXXX"
+            xivo-update-config
 
-        echo -e "XXX\n100\nUpdate Config... Done.\nXXX"
-        sleep 0.5
+            echo -e "XXX\n100\nUpdate Config... Done.\nXXX"
+            sleep 0.5
 
-    } | whiptail --gauge "Wait Please" 6 60 0
+        } | whiptail --gauge "Wait Please" 6 60 0
 
-  bye
+        create_wazo_template
+        bye
 
-  fi
+    fi
 }
+
+# Main
 update_smtp_origin
