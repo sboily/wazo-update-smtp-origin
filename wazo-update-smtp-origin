@@ -119,7 +119,7 @@ smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd" >> /etc/xivo/custom-tem
 
 create_wazo_template() {
     mkdir -p /etc/xivo/custom-templates/postfix/etc/postfix/
-    cp /etc/postfix/main.cf /etc/xivo/custom-templates/postfix/etc/postfix/
+    cp /etc/postfix/main.cf /etc/xivo/custom-templates/postfix/etc/postfix/
     touch /etc/xivo/custom-templates/postfix/etc/postfix/sender_relay
     touch /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
     chmod 600 /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
