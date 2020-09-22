@@ -117,6 +117,15 @@ smtp_sasl_security_options = noanonymous
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd" >> /etc/xivo/custom-templates/postfix/etc/postfix/main.cf
 }
 
+check_if_main_cf_template_already_exist() {
+    if grep wazo-update-smtp-origin /etc/xivo/custom-templates/postfix/etc/postfix/main.cf 2>&1 > /dev/null
+    then
+        return 1
+    fi
+
+    return 0
+}
+
 create_wazo_template() {
     mkdir -p /etc/xivo/custom-templates/postfix/etc/postfix/
     cp /etc/postfix/main.cf /etc/xivo/custom-templates/postfix/etc/postfix/
@@ -125,7 +134,11 @@ create_wazo_template() {
     chmod 600 /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
     chown root:root /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
 
-    configure_main_cf_template
+    check_if_main_cf_template_already_exist
+    if [ $? > 0 ]
+    then
+        configure_main_cf_template
+    fi
 }
 
 final_step() {
