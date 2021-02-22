@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -8,7 +8,7 @@ bye() {
 }
 
 update_smtp_origin() {
-    SMTP_Origin=$(whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --inputbox "Please write your new SMTP Origin Domain (ex.: contact@domain.io):" 13 60 3>&1 1>&2 2>&3)
+    SMTP_Origin=$(whiptail --title "Hello Wazo HELP / Modify SMTP Origin" --inputbox "Please write your new SMTP Origin Domain (ex.: domain.tld):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -29,7 +29,7 @@ update_smtp_origin() {
 
 update_domain() {
     domain=$(whiptail --title "Hello Wazo HELP / Modify Domain" \
-      --inputbox "Please write domain (ex.: domain.tdl):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write your Domain (ex.: domain.tdl):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -49,13 +49,13 @@ update_domain() {
 
 update_canonical() {
     Canonical=$(whiptail --title "Hello Wazo HELP / Modify Canonical" \
-      --inputbox "Please write canical mail (ex.: ex@mail.com general@domain.tdl\n+ex2@mail.com general@domain.tdl):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write user part from your mail for Canonical (mail user part ex.: noreply):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
         {
             echo -e "XXX\n0\nAdd in DB, Please Wait... \nXXX"
-            sudo -u postgres psql asterisk -c "UPDATE mail SET canonical='$Canonical';";
+            sudo -u postgres psql asterisk -c "UPDATE mail SET canonical='root $Canonical\nasterisk $Canonical\nwazo-agid $Canonical\nwazo-auth $Canonical\nwazo-amid $Canonical\nmunin $Canonical\nwazo $Canonical';";
 
             echo -e "XXX\n50\nAdd in DB... Done.\nXXX"
             sleep 0.5
@@ -69,7 +69,7 @@ update_canonical() {
 
 update_relayhost() {
     Relayhost=$(whiptail --title "Hello Wazo HELP / Modify relayhost" \
-      --inputbox "Please write Relay Host (ex.: smtp2.domain.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write Relay Host (ex.: smtp.domain.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -89,7 +89,7 @@ update_relayhost() {
 
 update_fallback_relayhost() {
     fallback_relayhost=$(whiptail --title "Hello Wazo HELP / Modify fallback_relayhost" \
-      --inputbox "Please write fallback relay host (ex.: smtp.provider.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write fallback relay host (ex.: smtp2.domain.tld | no fallback relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -105,27 +105,6 @@ update_fallback_relayhost() {
 
     final_step
 
-}
-
-configure_main_cf_template() {
-    echo "
-# Add by wazo-update-smtp-origin
-smtp_sender_dependent_authentication = yes
-sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
-smtp_sasl_auth_enable = yes
-smtp_sasl_security_options = noanonymous
-smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd" >> /etc/xivo/custom-templates/postfix/etc/postfix/main.cf
-}
-
-create_wazo_template() {
-    mkdir -p /etc/xivo/custom-templates/postfix/etc/postfix/
-    cp /etc/postfix/main.cf /etc/xivo/custom-templates/postfix/etc/postfix/
-    touch /etc/xivo/custom-templates/postfix/etc/postfix/sender_relay
-    touch /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
-    chmod 600 /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
-    chown root:root /etc/xivo/custom-templates/postfix/etc/postfix/sasl_passwd
-
-    configure_main_cf_template
 }
 
 final_step() {
@@ -146,7 +125,6 @@ final_step() {
 
         } | whiptail --gauge "Wait Please" 6 60 0
 
-        create_wazo_template
         bye
 
     fi
