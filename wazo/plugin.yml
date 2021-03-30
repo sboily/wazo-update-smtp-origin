@@ -1,6 +1,6 @@
 name: wazo-smtp-configuration
 namespace: official
-version: 1.0.0
+version: 1.0.1
 author: Wazo Support
 display_name: SMTP configuration
 min_wazo_version: 20.01

@@ -69,7 +69,7 @@ update_canonical() {
 
 update_relayhost() {
     Relayhost=$(whiptail --title "Hello Wazo HELP / Modify relayhost" \
-      --inputbox "Please write Relay Host (ex.: smtp.domain.tld | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write Relay Host (ex.: smtp.domain.tld or smtp.domain.tld:port | no relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -89,7 +89,7 @@ update_relayhost() {
 
 update_fallback_relayhost() {
     fallback_relayhost=$(whiptail --title "Hello Wazo HELP / Modify fallback_relayhost" \
-      --inputbox "Please write fallback relay host (ex.: smtp2.domain.tld | no fallback relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
+      --inputbox "Please write fallback relay host (ex.: smtp2.domain.tld or smtp.domain.tld:port | no fallback relay? leave empty):" 13 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
